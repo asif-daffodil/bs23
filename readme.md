@@ -73,4 +73,53 @@ For an e-commerce platform with structured data and complex relationships (users
 - **Parameterized Queries:** Use parameterized queries or prepared statements to prevent SQL injection attacks.
 - **Regular Security Audits:** Regularly audit and update security protocols to address emerging threats.
 
-Remember, the design and implementation should align with the specific needs and scale of the e-commerce platform, and it's essential to stay updated on security best practices.
+
+# 2. Coding Problem
+
+Here's a PHP function named `filterProducts` that meets the requirements:
+
+```php
+<?php
+
+function filterProducts($products, $categoryName) {
+    $filteredProducts = [];
+
+    foreach ($products as $product) {
+        $productCategory = strtolower($product['category']);
+        $searchCategory = strtolower($categoryName);
+
+        // Check if the category matches exactly or contains the specified category name
+        if ($productCategory === $searchCategory || strpos($productCategory, $searchCategory) !== false) {
+            $filteredProducts[] = $product;
+        }
+    }
+
+    return $filteredProducts;
+}
+
+// Sample products array
+$products = [
+    ['name' => 'Product 1', 'price' => 25.99, 'category' => 'Backend Development'],
+    ['name' => 'Product 2', 'price' => 49.99, 'category' => 'Frontend Development'],
+    ['name' => 'Product 3', 'price' => 12.99, 'category' => 'Full Stack Development'],
+    ['name' => 'Product 4', 'price' => 34.99, 'category' => 'Mobile App Development'],
+];
+
+// Sample cases
+$categoryName1 = 'backend';
+$categoryName2 = 'development';
+
+$filteredProducts1 = filterProducts($products, $categoryName1);
+$filteredProducts2 = filterProducts($products, $categoryName2);
+
+// Displaying the results
+echo "Products in the category '{$categoryName1}':\\n";
+print_r($filteredProducts1);
+
+echo "\\nProducts in the category '{$categoryName2}':\\n";
+print_r($filteredProducts2);
+?>
+
+```
+
+This function takes an array of products and a category name as input, and it returns a new array containing only the products that match the specified category or contain the category name. The sample cases demonstrate how to use the function with different category names.
